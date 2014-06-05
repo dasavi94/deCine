@@ -23,6 +23,7 @@ public class DeCine {
     private Map<String, Actor> misActores = new HashMap();
     private Map <String, Director> misDirectores = new HashMap();
     private Map <String, FestivalPremio> misFestivales = new HashMap();
+    private Map <String, Pelicula> misPeliculas= new HashMap();
     // incluir los que faltan
     
     // implementación del Singleton
@@ -36,6 +37,14 @@ public class DeCine {
     private UsuarioVIP buscarUsuario(String correo) throws Exception{    
         if (!misUsuarios.containsKey(correo)) throw new Exception ("no existe el usuario con ese correo");
         return misUsuarios.get(correo);
+    }
+    private FestivalPremio buscarFestivalPremio(String idPremio) throws Exception{    
+        if (!misFestivales.containsKey(idPremio)) throw new Exception ("no existe el usuario con ese premio");
+        return misFestivales.get(idPremio);
+    }
+    private Pelicula buscarPelicula (String idPelicula) throws Exception{
+        if(!misPeliculas.constainsKey(idPelicula)) throw new Exception("no existe la pelicula");
+        return misPeliculas.get(idPelicula);
     }
     
     // Obtener todos los id (key) de una lista de objetos.
@@ -57,4 +66,11 @@ public class DeCine {
      public void incluirUsuario(String nombre, String correo){
         misUsuarios.put(correo, new UsuarioVIP(nombre,correo));
     }
+     
+     public void nuevoPremio(String idPelicula,String idPremio,Genero categoria,int anio)
+     {
+         Pelicula pe=this.buscarPelicula(idPelicula);
+         FestivalPremio pre=this.buscarFestivalPremio(idPremio);
+         pe.incluirPremio(pre,categoria,anio);
+     }
 }
